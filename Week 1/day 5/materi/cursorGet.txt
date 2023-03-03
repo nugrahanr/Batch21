@@ -1,0 +1,5 @@
+begin;
+declare s1 cursor for select * from employees
+
+fetch all from s1
+
