@@ -1,3 +1,3 @@
 #
 
-week 4 dan 5 nyambung
+week 4 dan 5 nyambung (10 hari)
