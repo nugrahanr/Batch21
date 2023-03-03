@@ -1,0 +1,31 @@
+create or replace function get_profile_emp2(p_year integer)
+   returns text as $$
+declare 
+	 profiles text default '';
+     rec_emp   record;
+	 cur_emps cursor(p_year integer) 
+		 for select first_name, salary, hire_date
+		 from employees
+		 where extract(year from age(now(),hire_date)) = p_year;
+begin
+   -- open the cursor
+   open cur_emps(p_year);
+	
+   loop
+    -- fetch row into the film
+      fetch cur_emps into rec_emp;
+    -- exit when no more row to fetch
+      exit when not found;
+
+    -- build the output
+         profiles := profiles || ',' || rec_emp.first_name || ':' || rec_emp.salary;
+   end loop;
+  
+   -- close the cursor
+   close cur_emps;
+
+   return profiles;
+end; $$
+language plpgsql;
+drop function get_profile_emp
+select get_profile_emp2(15);
